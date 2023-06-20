@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { Login } from 'app/login/login.model';
+import { Login } from 'app/desktop/login/login.model';
 import { StateStorageService } from './state-storage.service';
 import { ApplicationConfigService } from '../config/application-config.service';
 

@@ -8,7 +8,7 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import dayjs from 'dayjs/esm';
 import { NgbDateAdapter, NgbDatepickerConfig } from '@ng-bootstrap/ng-bootstrap';
-
+import { RouterModule } from '@angular/router';
 import { ApplicationConfigService } from 'app/core/config/application-config.service';
 import './config/dayjs';
 import { TranslationModule } from 'app/shared/language/translation.module';
@@ -17,20 +17,26 @@ import { AppRoutingModule } from './app-routing.module';
 import { NgbDateDayjsAdapter } from './config/datepicker-adapter';
 import { fontAwesomeIcons } from './config/font-awesome-icons';
 import { httpInterceptorProviders } from 'app/core/interceptor/index';
-import MainComponent from './layouts/main/main.component';
-import MainModule from './layouts/main/main.module';
 import { AppPageTitleStrategy } from './app-page-title-strategy';
+import { ThemeMobileModule } from './mobile/theme/theme-mobile.module';
+import { ThemeDesktopModule } from './desktop/theme/theme-desktop.module';
+import { AppComponent } from './app.component';
+import SharedModule from './shared/shared.module';
 
 @NgModule({
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
+    RouterModule,
+    ThemeDesktopModule,
+    ThemeMobileModule,
     // jhipster-needle-angular-add-module JHipster will add new module here
     AppRoutingModule,
     // Set this to true to enable service worker (PWA)
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: false }),
     HttpClientModule,
-    MainModule,
     TranslationModule,
+    SharedModule,
   ],
   providers: [
     Title,
@@ -39,7 +45,7 @@ import { AppPageTitleStrategy } from './app-page-title-strategy';
     httpInterceptorProviders,
     { provide: TitleStrategy, useClass: AppPageTitleStrategy },
   ],
-  bootstrap: [MainComponent],
+  bootstrap: [AppComponent],
 })
 export class AppModule {
   constructor(applicationConfigService: ApplicationConfigService, iconLibrary: FaIconLibrary, dpConfig: NgbDatepickerConfig) {
